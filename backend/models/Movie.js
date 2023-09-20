@@ -9,6 +9,7 @@ const movieSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    actors:[{type: String, required: true}],
     releaseDate: {
         type: Date,
         required: true,
@@ -24,7 +25,8 @@ const movieSchema = new mongoose.Schema({
         {type: String}
     ],
     admin: {
-        type: String,
+        type: mongoose.Types.ObjectId,
+        reh: 'Admin',
         required: true,
     },
 });

@@ -32,7 +32,7 @@ export const addAdmin = async (req, res, next) => {
 };
 
 export const adminLogin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const {email, password } = req.body;
   if (!email && email.trim() === "" && !password && password.trim() === "") {
     return res.status(422).json({ message: "Invalid input data!" });
   }
@@ -65,3 +65,17 @@ export const adminLogin = async (req, res, next) => {
     id: existingAdmin._id,
   });
 };
+
+export const getAllAdmins = async (req, res, next) => {
+  let admins;
+  try{
+    admins = await Admin.find();
+  }
+  catch(err){
+    return console.log(err);
+  }
+  if(!admins){
+    return res.status(500).json({message: "Internal Server Error!"});
+  }
+  return res.status(200).json({admins});
+}
