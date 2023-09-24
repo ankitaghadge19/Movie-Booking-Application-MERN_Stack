@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllUsers, updateUser, deleteUser, login } from "../controllers/user-controller";
+import { getAllUsers, updateUser, deleteUser, login, getBookingsOfUser } from "../controllers/user-controller";
 import { signup } from "../controllers/user-controller";
 
 const userRouter = express.Router();
@@ -8,5 +8,6 @@ userRouter.post("/signup", signup);
 userRouter.put("/:id", updateUser);
 userRouter.delete("/:id", deleteUser);
 userRouter.post("/login", login)
+userRouter.get("/bookings/:id", getBookingsOfUser);
 
 export default userRouter;
