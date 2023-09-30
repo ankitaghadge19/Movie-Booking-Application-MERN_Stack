@@ -7,9 +7,17 @@ import userRouter from "./routes/user-routes";
 import adminRouter from "./routes/admin-routes";
 import movieRouter from "./routes/movie-routes";
 import bookingsRouter from "./routes/booking-routes";
+import cors from "cors";
 dotenv.config();
 const app = express();
 app.use(express.json());
+
+app.use(cors({
+  origin: "http://localhost:3000", 
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+}));
+
 
 //middleware
 app.use("/user", userRouter);
@@ -31,3 +39,4 @@ mongoose
 
 //username: admin
 //password: Spc4Bm0SXXYXWkFo
+
