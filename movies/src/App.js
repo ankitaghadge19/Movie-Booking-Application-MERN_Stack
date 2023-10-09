@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import HomePage from "./components/HomePage";
 import Admin from "./components/Admin/Admin";
-import Movies from "./components/Movies/Movies";
 import Auth from "./components/Auth/Auth";
+import Movies from "./components/Movies/Movies";
 
 function App() {
   return (
