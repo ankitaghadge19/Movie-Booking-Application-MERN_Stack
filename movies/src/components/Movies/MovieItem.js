@@ -33,7 +33,7 @@ const MovieItem = ({ title, releaseDate, posterUrl, id }) => {
       </CardContent>
       <CardActions>
         <Button sx={{ margin: "auto" }} size="small">
-          Share
+          Book
         </Button>
       </CardActions>
     </Card>

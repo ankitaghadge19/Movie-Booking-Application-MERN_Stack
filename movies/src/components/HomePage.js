@@ -37,7 +37,7 @@ const HomePage = () => {
         flexWrap="wrap"
       >
         {movies &&
-          movies.map((movie, index) => (
+          movies.slice(0, 4).map((movie, index) => (
             <MovieItem
               key={index}
               id={movie.id}
