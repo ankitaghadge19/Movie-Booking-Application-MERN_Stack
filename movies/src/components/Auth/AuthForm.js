@@ -3,44 +3,82 @@ import {
   Button,
   Dialog,
   FormLabel,
+  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 const labelStyle = { mt: 1, mb: 1 };
 
-const AuthForm = () => {
+const AuthForm = ({ onSubmit, isAdmin }) => {
+  const [isSignup, setIsSignup] = useState(false);
+  const [inputs, setInputs] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    setInputs((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit({ inputs, signup: isAdmin ? false : isSignup });
+    console.log(inputs);
+  };
   return (
-    <Dialog open={true}>
-      <Typography variant="h4" marginTop={2} textAlign={"center"}>
-        Login
+    <Dialog PaperProps={{ style: { borderRadius: 20 } }} open={true}>
+      <Box sx={{ ml: "auto", padding: 1 }}>
+        <IconButton>
+          <CloseRoundedIcon />
+        </IconButton>
+      </Box>
+      <Typography variant="h4" textAlign={"center"}>
+        {isSignup ? "Signup" : "Login"}
       </Typography>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Box
           padding={5}
           display={"flex"}
           justifyContent={"center"}
           flexDirection="column"
-          width={400}
+          width={350}
+          height={330}
           margin="auto"
           alignContent={"center"}
         >
-          <FormLabel sx={labelStyle}>Name</FormLabel>
-          <TextField
-            margin="normal"
-            variant="standard"
-            type={"text"}
-            name="name"
-          />
+          {!isAdmin && isSignup && (
+            <>
+              {" "}
+              <FormLabel sx={labelStyle}>Name</FormLabel>
+              <TextField
+                value={inputs.name}
+                onChange={handleChange}
+                margin="normal"
+                variant="standard"
+                type={"text"}
+                name="name"
+              />
+            </>
+          )}
+
           <FormLabel sx={labelStyle}>Email</FormLabel>
           <TextField
+            value={inputs.email}
+            onChange={handleChange}
             margin="normal"
             variant="standard"
             type={"email"}
             name="email"
           />
+
           <FormLabel sx={labelStyle}>Password</FormLabel>
           <TextField
+            value={inputs.password}
+            onChange={handleChange}
             margin="normal"
             variant="standard"
             type={"password"}
@@ -52,11 +90,18 @@ const AuthForm = () => {
             type="submit"
             fullWidth
           >
-            Login
+            {isSignup ? "Signup" : "Login"}
           </Button>
-          <Button sx={{ mt: 2, borderRadius: 10 }} type="submit" fullWidth>
-            Switch
-          </Button>
+          {!isAdmin && (
+            <Button
+              type="button"
+              onClick={() => setIsSignup(!isSignup)}
+              sx={{ mt: 2, borderRadius: 10 }}
+              fullWidth
+            >
+              Switch to {isSignup ? "Login" : "Signup"}
+            </Button>
+          )}
         </Box>
       </form>
     </Dialog>
