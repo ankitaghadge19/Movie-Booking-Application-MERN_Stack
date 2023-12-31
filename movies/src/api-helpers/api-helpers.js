@@ -23,7 +23,7 @@ export const sendUserAuthRequest = async (data, signup) => {
     console.log("Unexpected Error Occurred!");
   }
   const resData = await res.data;
-  console.log(resData);
+  // console.log(resData);
   return resData;
 };
 
@@ -40,5 +40,6 @@ export const sendAdminAuthRequest = async (data) => {
   }
 
   const resData = await res.data;
+  // console.log(resData);
   return resData;
 };

@@ -29,9 +29,18 @@ export const signup = async (req, res, next) => {
     return res.status(422).json({ message: "Invalid input data!" });
   }
 
-  const hashedPassword = bcrypt.hashSync(password);
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email });
+  } catch (err) {
+    return console.log(err);
+  }
+  if (existingUser) {
+    return res.status(400).json({ message: "User already exist!" });
+  }
 
   let user;
+  const hashedPassword = bcrypt.hashSync(password);
   try {
     user = new User({ name, email, password: hashedPassword });
     user = await user.save();
@@ -83,7 +92,7 @@ export const deleteUser = async (req, res, next) => {
   } catch (err) {
     consolr.log(err);
   }
-  if (!User) {
+  if (!user) {
     return res.status(500).json({ message: "Something went wrong!" });
   }
   res.status(200).json({ message: "Deleted Successfully!" });

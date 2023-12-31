@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { getAllMovies } from "../../api-helpers/api-helpers";
+import { Link } from "react-router-dom";
 
 const MovieItem = ({ title, releaseDate, posterUrl, id }) => {
   return (
@@ -32,7 +33,12 @@ const MovieItem = ({ title, releaseDate, posterUrl, id }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button sx={{ margin: "auto" }} size="small">
+        <Button
+          LinkComponent={Link}
+          to={`/booking/${id}`}
+          sx={{ margin: "auto" }}
+          size="small"
+        >
           Book
         </Button>
       </CardActions>

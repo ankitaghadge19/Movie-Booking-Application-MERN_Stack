@@ -9,7 +9,7 @@ const Auth = () => {
   const onResReceived = (data) => {
     console.log(data);
     dispatch(userActions.login());
-    localStorage.setItem("UserId", data.id);
+    localStorage.setItem("userId", data.id);
   }
   const getData = (data) => {
     console.log("Auth: ", data);

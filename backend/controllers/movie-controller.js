@@ -5,7 +5,7 @@ import Admin from "../models/Admin";
 
 export const addMovie = async (req, res, next) => {
   const extractedToken = req.headers.authorization.split(" ")[1];
-  if (!extractedToken && extractedToken.trim() == "") {
+  if (!extractedToken && extractedToken.trim() === "") {
     return res.status(404).json({ message: "Token Not Found!" });
   }
   // console.log(extractedToken);
@@ -90,3 +90,37 @@ export const getAllMovieById = async (req, res, next) => {
   }
   return res.status(200).json({movie});
 }
+
+export const updateMovie = async (req, res, next) => {
+  const id = req.params.id;
+  const { title, description, releaseDate, posterUrl, featured, actors } = req.body;
+  if (
+    !title &&
+    title.trim === "" &&
+    !description &&
+    description.trim() === "" &&
+    !releaseDate &&
+    releaseDate.trim() === ""&&
+    !posterUrl &&
+    posterUrl.trim() === ""&&
+    !featured &&
+    featured.trim() === ""&&
+    !actors &&
+    actors.trim() === ""
+  ) {
+    return res.status(422).json({ message: "Invalid input data!" });
+  }
+
+  let movie;
+  try {
+    movie = await Movie.findByIdAndUpdate(id, {
+      title, description, releaseDate, posterUrl, featured, actors
+    });
+  } catch (err) {
+    return console.log(err);
+  }
+  if (!movie) {
+    return res.status(500).json({ message: "Something went wrong!" });
+  }
+  res.status(200).json({ message: "Movie Updated Successfully!" });
+};

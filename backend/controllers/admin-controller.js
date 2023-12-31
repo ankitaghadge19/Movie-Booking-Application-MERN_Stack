@@ -79,3 +79,31 @@ export const getAllAdmins = async (req, res, next) => {
   }
   return res.status(200).json({admins});
 }
+
+export const updateAdmin = async (req, res, next) => {
+  const id = req.params.id;
+  const { email, password } = req.body;
+  if (
+    !email &&
+    email.trim() === "" &&
+    !password &&
+    password.trim() === ""
+  ) {
+    return res.status(422).json({ message: "Invalid input data!" });
+  }
+
+  const hashedPassword = bcrypt.hashSync(password);
+  let admin;
+  try {
+      admin = await Admin.findByIdAndUpdate(id, {
+      email,
+      password: hashedPassword,
+    });
+  } catch (err) {
+    return console.log(err);
+  }
+  if (!admin) {
+    return res.status(500).json({ message: "Something went wrong!" });
+  }
+  res.status(200).json({ message: "Updated Successfully!" });
+};

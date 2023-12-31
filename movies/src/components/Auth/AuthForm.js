@@ -2,90 +2,91 @@ import {
   Box,
   Button,
   Dialog,
-  FormLabel,
   IconButton,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-const labelStyle = { mt: 1, mb: 1 };
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import React, { useState } from "react";
 
 const AuthForm = ({ onSubmit, isAdmin }) => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [isSignup, setIsSignup] = useState(false);
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
     password: "",
   });
+
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ inputs, signup: isAdmin ? false : isSignup });
-    console.log(inputs);
   };
+
   return (
     <Dialog PaperProps={{ style: { borderRadius: 20 } }} open={true}>
-      <Box sx={{ ml: "auto", padding: 1 }}>
+      <Box sx={{ ml: "auto", p: 1 }}>
         <IconButton>
           <CloseRoundedIcon />
         </IconButton>
       </Box>
-      <Typography variant="h4" textAlign={"center"}>
+      <Typography variant="h5" textAlign="center" sx={{ my: 0 }}>
         {isSignup ? "Signup" : "Login"}
       </Typography>
       <form onSubmit={handleSubmit}>
         <Box
-          padding={5}
-          display={"flex"}
-          justifyContent={"center"}
+          p={isSmallScreen ? 2 : 3}
+          display="flex"
           flexDirection="column"
-          width={350}
-          height={330}
+          width={isSignup ? (isSmallScreen ? "90%" : 350) : (isSmallScreen ? "90%" : 300)}
           margin="auto"
-          alignContent={"center"}
         >
           {!isAdmin && isSignup && (
             <>
-              {" "}
-              <FormLabel sx={labelStyle}>Name</FormLabel>
               <TextField
                 value={inputs.name}
                 onChange={handleChange}
                 margin="normal"
                 variant="standard"
-                type={"text"}
+                type="text"
                 name="name"
+                label="Name"
               />
             </>
           )}
 
-          <FormLabel sx={labelStyle}>Email</FormLabel>
           <TextField
             value={inputs.email}
             onChange={handleChange}
             margin="normal"
             variant="standard"
-            type={"email"}
+            type="email"
             name="email"
+            label="Email"
           />
 
-          <FormLabel sx={labelStyle}>Password</FormLabel>
           <TextField
             value={inputs.password}
             onChange={handleChange}
             margin="normal"
             variant="standard"
-            type={"password"}
+            type="password"
             name="password"
+            label="Password"
           />
           <Button
-            sx={{ mt: 2, borderRadius: 10, bgcolor: "black" }}
+            sx={{ mt: 2, borderRadius: 8, bgcolor: "black", fontSize: "0.9rem" }}
             variant="contained"
             type="submit"
             fullWidth
@@ -96,7 +97,7 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
             <Button
               type="button"
               onClick={() => setIsSignup(!isSignup)}
-              sx={{ mt: 2, borderRadius: 10 }}
+              sx={{ mt: 1, borderRadius: 8, fontSize: "0.8rem" }}
               fullWidth
             >
               Switch to {isSignup ? "Login" : "Signup"}

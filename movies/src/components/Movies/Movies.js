@@ -12,12 +12,12 @@ const Movies = () => {
   }, []);
 
   return (
-    <Box margin={"auto"} marginTop={4}>
+    <Box margin={"auto"} marginTop={0}>
       <Typography
         margin={"auto"}
         bgcolor={"#9c27b0"}
-        width="40%"
-        padding={2}
+        width="100%"
+        padding={1}
         color="white"
         textAlign={"center"}
         variant="h5"
@@ -25,12 +25,12 @@ const Movies = () => {
         All Movies
       </Typography>
       <Box
-        width={"100%"}
-        margin="auto"
-        marginTop={4}
-        display={"flex"}
-        justifyContent="flex-start"
-        flexWrap={"wrap"}
+        margin={"auto"}
+        display="flex"
+        width="100%"
+        justifyContent={"center"}
+        alignItems="center"
+        flexWrap="wrap"
       >
         {movies &&
           movies.map((movie, index) => (

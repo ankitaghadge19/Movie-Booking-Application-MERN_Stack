@@ -12,10 +12,10 @@ const HomePage = () => {
       .then((data) => setMovies(data.movies))
       .catch((err) => console.log(err));
   }, []);
-  console.log(movies);
+  // console.log(movies);
   return (
     <Box width={"100%"} height="100%" margin="auto" marginTop={2}>
-      <Box margin={"auto"} width="80%" height={"50vh"} padding={2}>
+      <Box margin={"auto"} width="88%" height={"50vh"} padding={2}>
         <img
           src="https://assets-in.bmscdn.com/discovery-catalog/events/et00343918-clcadgyeve-landscape.jpg"
           alt="The Kerla Story"
@@ -31,7 +31,7 @@ const HomePage = () => {
       <Box
         margin={"auto"}
         display="flex"
-        width="80%"
+        width="100%"
         justifyContent={"center"}
         alignItems="center"
         flexWrap="wrap"

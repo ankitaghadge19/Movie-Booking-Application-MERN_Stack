@@ -4,14 +4,27 @@ import HomePage from "./components/HomePage";
 import Admin from "./components/Admin/Admin";
 import Auth from "./components/Auth/Auth";
 import Movies from "./components/Movies/Movies";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { adminActions, userActions } from "./store";
 
 function App() {
+  const dispatch = useDispatch();
+
+  //To get the state of admin and user from store->index.js
   const isAdminLoggedIn = useSelector((state)=>state.admin.isLoggedIn);
   const isUserLoggedIn = useSelector((state)=>state.user.isLoggedIn);
   console.log("isAdminLoggedIn: ", isAdminLoggedIn);
   console.log("isUserLoggedIn: ", isUserLoggedIn);
 
+  //To update the values inside store->index.js
+  useEffect(() => {
+    if(localStorage.getItem("userId")){
+      dispatch(userActions.login());
+    }else if(localStorage.getItem("adminId")){
+      dispatch(adminActions.login());
+    }
+  }, [])
   return (
     <div>
       <Header/> 
